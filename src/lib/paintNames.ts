@@ -65,21 +65,56 @@ const GRAYSCALE_NOUNS = {
 };
 
 const LIGHTNESS_MODIFIERS = {
-  veryLight: ["Whisper", "Cloud", "Morning", "Pearl", "Frost", "Gentle", "Soft"],
-  light: ["Soft", "Gentle", "Pale", "Quiet", "Hazy"],
-  mid: ["Classic", "True", "Modern", "Golden"],
-  dark: ["Deep", "Dusky", "Shadow", "Moody", "Twilight"],
-  veryDark: ["Midnight", "Charcoal", "Onyx", "Raven", "Ink"],
+  veryLight: [
+    "Whisper", "Cloud", "Morning", "Pearl", "Frost", "Gentle", "Soft", "Ethereal",
+    "Airy", "Luminous", "Delicate", "Silken", "Ghostly", "Powdery", "Feather",
+    "Milky", "Sheer", "Dawn",
+  ],
+  light: [
+    "Soft", "Gentle", "Pale", "Quiet", "Hazy", "Faint", "Sunlit", "Breezy",
+    "Tender", "Barely-There", "Fresh", "Delicate",
+  ],
+  mid: [
+    "Classic", "True", "Modern", "Golden", "Balanced", "Steady", "Earthy",
+    "Honest", "Timeless", "Warm", "Natural", "Everyday",
+  ],
+  dark: [
+    "Deep", "Dusky", "Shadow", "Moody", "Twilight", "Brooding", "Somber",
+    "Stormy", "Smoky", "Rich", "Late-Night", "Hushed",
+  ],
+  veryDark: [
+    "Midnight", "Charcoal", "Onyx", "Raven", "Ink", "Obsidian", "Umbra",
+    "Inkwell", "Blackout", "Starless", "Coal", "Abyssal",
+  ],
 };
 
 const SATURATION_MODIFIERS = {
-  low: ["Weathered", "Dusty", "Faded", "Vintage", "Muted", "Stone"],
-  mid: [] as string[],
-  high: ["Electric", "Bold", "Vivid", "Bright", "Radiant"],
+  low: [
+    "Weathered", "Dusty", "Faded", "Vintage", "Muted", "Stone", "Antique",
+    "Timeworn", "Chalky", "Worn-In", "Understated", "Subdued",
+  ],
+  mid: ["Balanced", "Familiar", "Grounded", "Easygoing"] as string[],
+  high: [
+    "Electric", "Bold", "Vivid", "Bright", "Radiant", "Neon", "Blazing",
+    "Fiery", "Fierce", "Supercharged", "Loud", "Turbocharged", "Blinding",
+  ],
 };
 
 // Not tied to hue/lightness/saturation — pure flavor, always in the mix.
-const GENERAL_MODIFIERS = ["Rogue", "Wild", "Secret", "Dreamy", "Playful", "Sly", "Lucky", "Velvet"];
+const GENERAL_MODIFIERS = [
+  "Rogue", "Wild", "Secret", "Dreamy", "Playful", "Sly", "Lucky", "Velvet",
+  "Bashful", "Cheeky", "Daring", "Elegant", "Fickle", "Giddy", "Humble",
+  "Jazzy", "Keen", "Lively", "Mellow", "Nifty", "Quirky", "Sassy", "Unruly",
+  "Vibrant", "Whimsical", "Zesty", "Breezy", "Cozy", "Dapper", "Earnest",
+  "Feisty", "Groovy", "Hushed", "Jolly", "Lush", "Mystic", "Nostalgic",
+  "Opulent", "Precious", "Restless", "Serene", "Tranquil", "Unbothered",
+  "Wistful", "Youthful", "Zany", "Brave", "Curious", "Devoted", "Effortless",
+  "Free", "Gallant", "Honest", "Intrepid", "Jubilant", "Kindred", "Loyal",
+  "Magnetic", "Noble", "Original", "Proud", "Resolute", "Spirited",
+  "Unstoppable", "Charming", "Dashing", "Enigmatic", "Fearless", "Graceful",
+  "Impulsive", "Jaunty", "Klutzy", "Legendary", "Merry", "Notorious",
+  "Outrageous", "Peculiar", "Rascally", "Scrappy", "Thrifty", "Untamed",
+];
 
 function pickOne<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
