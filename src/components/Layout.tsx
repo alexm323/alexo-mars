@@ -5,8 +5,14 @@ import { site } from "../content/site";
 const NAV = [
   { label: "Home", href: "/" },
   { label: "Paint Names", href: "/paint-names" },
-  { label: "Dating Survey", href: "/date-survey" },
+  { label: "Mission Debrief", href: "/mission-debrief.html" },
 ];
+
+// A nav item can point at a real SPA route (client-side nav) or a
+// standalone static file served as-is (needs a real page load).
+function isStaticHref(href: string): boolean {
+  return /\.\w+$/.test(href);
+}
 
 export default function Layout({ children }: { children: ReactNode }) {
   const location = useLocation();
@@ -21,16 +27,15 @@ export default function Layout({ children }: { children: ReactNode }) {
           <nav className="flex gap-5 text-sm">
             {NAV.map((item) => {
               const active = location.pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={
-                    active
-                      ? "font-medium text-violet-600 dark:text-violet-400"
-                      : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
-                  }
-                >
+              const linkClassName = active
+                ? "font-medium text-violet-600 dark:text-violet-400"
+                : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white";
+              return isStaticHref(item.href) ? (
+                <a key={item.href} href={item.href} className={linkClassName}>
+                  {item.label}
+                </a>
+              ) : (
+                <Link key={item.href} to={item.href} className={linkClassName}>
                   {item.label}
                 </Link>
               );

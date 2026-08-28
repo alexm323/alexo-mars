@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="A lighthearted post-date debrief — tap a few tags, share the verdict.">
+<title>Mission Debrief</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #ECE4D3;
+    --card: #FBF7ED;
+    --ink: #2A231C;
+    --ink-soft: #6E6252;
+    --line: #CBBB9C;
+    --accent: #BF4128;
+    --accent-ink: #FFF8EC;
+    --accent2: #B4801F;
+    --accent2-soft: #ECDDB7;
+    --shadow: rgba(42, 35, 28, 0.14);
+    --focus: #2A231C;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #191510;
+      --card: #231D16;
+      --ink: #EEE4D2;
+      --ink-soft: #AC9E86;
+      --line: #443A2B;
+      --accent: #E1704F;
+      --accent-ink: #221006;
+      --accent2: #DEAA4E;
+      --accent2-soft: #362C1B;
+      --shadow: rgba(0, 0, 0, 0.45);
+      --focus: #EEE4D2;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #191510;
+    --card: #231D16;
+    --ink: #EEE4D2;
+    --ink-soft: #AC9E86;
+    --line: #443A2B;
+    --accent: #E1704F;
+    --accent-ink: #221006;
+    --accent2: #DEAA4E;
+    --accent2-soft: #362C1B;
+    --shadow: rgba(0, 0, 0, 0.45);
+    --focus: #EEE4D2;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Literata', Georgia, 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 1.25rem 5rem;
+  }
+
+  a { color: var(--accent); }
+
+  .progress-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 0.65rem 0;
+  }
+  .progress-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .track {
+    flex: 1;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--line);
+    overflow: hidden;
+  }
+  .fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.35s ease;
+  }
+  .progress-text {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .autosave-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent2);
+    flex: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .autosave-dot.pulse { animation: pulse 0.9s ease; }
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    40% { transform: scale(2.1); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .hero {
+    padding: 2.25rem 0 1.75rem;
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.6rem;
+  }
+  .eyebrow a { color: inherit; text-decoration: none; }
+  .eyebrow a:hover { text-decoration: underline; }
+  h1 {
+    font-family: 'Bricolage Grotesque', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 7vw, 2.7rem);
+    line-height: 1.05;
+    text-wrap: balance;
+    margin: 0 0 0.75rem;
+  }
+  .intro {
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.4rem 1.4rem 1.6rem;
+    margin-bottom: 1.15rem;
+    box-shadow: 0 1px 0 var(--shadow);
+  }
+  .ticket-tab {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding-bottom: 0.85rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px dashed var(--line);
+  }
+  .ticket-tab .num {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .ticket-tab .stitle {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+
+  .question { margin-bottom: 1.5rem; }
+  .question:last-child { margin-bottom: 0; }
+  .qlabel {
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0 0 0.2rem;
+  }
+  .qhelper {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.6rem;
+  }
+  .qlabel + .qhelper { margin-top: -0.05rem; }
+
+  textarea {
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    min-height: 2.6rem;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    font-family: 'Literata', Georgia, serif;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    margin-top: 0.55rem;
+  }
+  textarea::placeholder { color: var(--ink-soft); opacity: 0.7; }
+  textarea:focus-visible, button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .chip-label {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+  .chip {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.76rem;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px dashed var(--line);
+    border-radius: 7px;
+    padding: 0.32rem 0.6rem;
+    cursor: pointer;
+    line-height: 1.2;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip.active {
+    background: var(--accent2-soft);
+    border-style: solid;
+    border-color: var(--accent2);
+    color: var(--ink);
+  }
+
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .pill {
+    font-family: 'Literata', serif;
+    font-size: 0.92rem;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+    cursor: pointer;
+  }
+  .pill:hover { border-color: var(--accent); }
+  .pill.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .scale10 {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+  .scale-btn {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.82rem;
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scale-btn:hover { border-color: var(--accent); }
+  .scale-btn.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .actions {
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .btn-primary {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: none;
+    border-radius: 10px;
+    padding: 0.85rem 1.2rem;
+    cursor: pointer;
+  }
+  .btn-primary:hover { filter: brightness(1.06); }
+  .status-line {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    min-height: 1rem;
+  }
+  .fine-print {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .btn-clear {
+    align-self: flex-start;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+  }
+  .btn-clear:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <div class="progress-text">
+      <span class="autosave-dot" id="dot"></span>
+      <span id="progressText">0 / 0 answered</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <p class="eyebrow"><a href="/">alexomars.com</a> &middot; field report</p>
+    <h1>Mission Debrief</h1>
+    <p class="intro">A few questions about tonight — answer what you want, skip what you don't. Tap any tag below a question for a quick idea if you're blanking. Everything here saves to this device as you go, so feel free to close the tab and come back.</p>
+  </div>
+
+  <div id="sections"></div>
+
+  <div class="actions">
+    <button class="btn-primary" id="copyBtn">Copy my answers</button>
+    <p class="status-line" id="statusLine" aria-live="polite"></p>
+    <p class="fine-print">Nothing here gets sent anywhere automatically — copy your answers and send them however you'd like (or just tell me in person).</p>
+    <button class="btn-clear" id="clearBtn">Start over / clear everything</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var SECTIONS = [
+    {
+      num: '01 / 05', title: 'Vibe Check',
+      questions: [
+        { id: 'q1', type: 'scale10', label: 'Overall, how was tonight?', helper: '1 = rough night, 10 = book the next one' },
+        { id: 'q2', type: 'chips', label: 'One word for tonight.', chips: ['Refreshing', 'Fun', 'Surprising', 'Sweet', 'Chaotic (affectionate)', 'Cozy'] },
+        { id: 'q3', type: 'pills', label: 'Did it match what you expected going in?', options: ['Worse than expected', 'About what I expected', 'Better than expected'] },
+        { id: 'q4', type: 'pills', label: 'Nervous-o-meter, before we met up:', options: ['Ice cold, zero nerves', 'A few butterflies', 'Pretty nervous', 'Sweating through my jacket'] }
+      ]
+    },
+    {
+      num: '02 / 05', title: 'The Specifics',
+      questions: [
+        { id: 'q5', type: 'chips', label: 'Best moment of the date.', chips: ['When we talked about…', 'The food or drinks', 'Just easy conversation the whole time', 'When you made me laugh', 'The walk/activity after'] },
+        { id: 'q6', type: 'chips', label: 'Most awkward moment. Be honest, I can take it.', chips: ['The bill moment', 'Silence right at the start', 'Not knowing what to order', 'Honestly? Nothing, it was smooth'] },
+        { id: 'q7', type: 'chips', label: 'Something that surprised you about me.', chips: ['Funnier than I expected', 'More nervous than I expected', 'You really know a lot about…', 'Pretty much matched what I pictured'] },
+        { id: 'q8', type: 'scale10', label: 'Rate the venue or activity.', helper: 'The place, not the company' },
+        { id: 'q9', type: 'chips', label: 'Anything you would change about the plan?', chips: ['Nothing, it was great as-is', 'A different spot', 'More time together', 'A completely different activity'] }
+      ]
+    },
+    {
+      num: '03 / 05', title: 'Getting To Know You',
+      questions: [
+        { id: 'q10', type: 'chips', label: 'Something you are weirdly proud of.', chips: ['My playlists', 'My cooking', 'Useless trivia knowledge', 'My parallel parking'] },
+        { id: 'q11', type: 'chips', label: 'A small thing that makes your day better.', chips: ['Good coffee', 'A good song coming on', 'A text from a friend', 'My pet being ridiculous'] },
+        { id: 'q12', type: 'chips', label: 'Your dream version of date two.', chips: ['A cozy night in', 'Another little adventure', 'A low-key dinner', 'Something totally spontaneous'] },
+        { id: 'q13', type: 'text', label: 'A question you wish I had asked tonight.' }
+      ]
+    },
+    {
+      num: '04 / 05', title: 'Superlatives',
+      questions: [
+        { id: 'q14', type: 'scale10', label: 'Rate my outfit.' },
+        { id: 'q15', type: 'scale10', label: 'Rate my jokes.', helper: 'Mercy not required' },
+        { id: 'q16', type: 'pills', label: 'Did I pass the vibe check?', options: ['Yes', 'No', 'Jury is still out'] },
+        { id: 'q17', type: 'chips', label: 'The most "him" thing I did tonight.', chips: ['The dad joke', 'Overexplaining something', 'Being extremely polite to the waiter', 'Getting distracted mid-sentence'] },
+        { id: 'q18', type: 'pills', label: 'Quick fire: beach date or mountain date?', options: ['Beach date', 'Mountain date'] },
+        { id: 'q19', type: 'pills', label: 'Quick fire: texter or caller?', options: ['Texter', 'Caller'] }
+      ]
+    },
+    {
+      num: '05 / 05', title: 'The Verdict',
+      questions: [
+        { id: 'q20', type: 'pills', label: 'Second date interest?', options: ['Yes', 'No', 'Ask me after dessert'] },
+        { id: 'q21', type: 'chips', label: 'What should we do next time?', chips: ["Same kind of thing again", 'Try something totally new', "Meet each other's friends", 'A low-key hangout, no pressure'] },
+        { id: 'q22', type: 'text', label: 'Anything I should never do again.' },
+        { id: 'q23', type: 'text', label: 'Parting words, for the record.' }
+      ]
+    }
+  ];
+
+  var STORAGE_KEY = 'alexomars.missionDebrief.v1';
+  var answers = {};
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    if (saved && typeof saved === 'object') answers = saved;
+  } catch (e) { answers = {}; }
+
+  var totalQuestions = 0;
+  SECTIONS.forEach(function (s) { totalQuestions += s.questions.length; });
+
+  var dot = document.getElementById('dot');
+  var fill = document.getElementById('fill');
+  var progressText = document.getElementById('progressText');
+  var sectionsEl = document.getElementById('sections');
+
+  function persist() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(answers)); } catch (e) {}
+    updateProgress();
+    try {
+      dot.classList.remove('pulse');
+      void dot.offsetWidth;
+      dot.classList.add('pulse');
+    } catch (e) {}
+  }
+
+  function updateProgress() {
+    var answered = 0;
+    Object.keys(answers).forEach(function (k) {
+      var v = answers[k];
+      if (typeof v === 'number') { answered++; }
+      else if (typeof v === 'string' && v.trim().length > 0) { answered++; }
+    });
+    progressText.textContent = answered + ' / ' + totalQuestions + ' answered';
+    fill.style.width = (totalQuestions ? (answered / totalQuestions) * 100 : 0) + '%';
+  }
+
+  function autosize(el) {
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
+  }
+
+  var questionCounter = 0;
+
+  function buildQuestion(q) {
+    questionCounter++;
+    var labelId = 'label-' + q.id;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'question';
+
+    var label = document.createElement('p');
+    label.className = 'qlabel';
+    label.id = labelId;
+    label.textContent = q.label;
+    wrap.appendChild(label);
+
+    if (q.helper) {
+      var helper = document.createElement('p');
+      helper.className = 'qhelper';
+      helper.textContent = q.helper;
+      wrap.appendChild(helper);
+    }
+
+    if (q.type === 'scale10') {
+      var row = document.createElement('div');
+      row.className = 'scale10';
+      row.setAttribute('role', 'group');
+      row.setAttribute('aria-labelledby', labelId);
+      for (var n = 1; n <= 10; n++) {
+        (function (n) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'scale-btn';
+          b.textContent = String(n);
+          var isSelected = answers[q.id] === n;
+          if (isSelected) b.classList.add('selected');
+          b.setAttribute('aria-pressed', String(isSelected));
+          b.addEventListener('click', function () {
+            var already = answers[q.id] === n;
+            row.querySelectorAll('.scale-btn').forEach(function (x) {
+              x.classList.remove('selected');
+              x.setAttribute('aria-pressed', 'false');
+            });
+            if (already) { delete answers[q.id]; }
+            else {
+              answers[q.id] = n;
+              b.classList.add('selected');
+              b.setAttribute('aria-pressed', 'true');
+            }
+            persist();
+          });
+          row.appendChild(b);
+        })(n);
+      }
+      wrap.appendChild(row);
+    }
+
+    if (q.type === 'pills') {
+      var prow = document.createElement('div');
+      prow.className = 'pills';
+      prow.setAttribute('role', 'group');
+      prow.setAttribute('aria-labelledby', labelId);
+      q.options.forEach(function (opt) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pill';
+        b.textContent = opt;
+        var isSelected = answers[q.id] === opt;
+        if (isSelected) b.classList.add('selected');
+        b.setAttribute('aria-pressed', String(isSelected));
+        b.addEventListener('click', function () {
+          var already = answers[q.id] === opt;
+          prow.querySelectorAll('.pill').forEach(function (x) {
+            x.classList.remove('selected');
+            x.setAttribute('aria-pressed', 'false');
+          });
+          if (already) { delete answers[q.id]; }
+          else {
+            answers[q.id] = opt;
+            b.classList.add('selected');
+            b.setAttribute('aria-pressed', 'true');
+          }
+          persist();
+        });
+        prow.appendChild(b);
+      });
+      wrap.appendChild(prow);
+    }
+
+    if (q.type === 'text' || q.type === 'chips') {
+      var ta = document.createElement('textarea');
+      ta.rows = 1;
+      ta.placeholder = q.type === 'chips' ? 'Type your own, or tap an idea below…' : 'Type your answer…';
+      ta.setAttribute('aria-labelledby', labelId);
+      ta.value = typeof answers[q.id] === 'string' ? answers[q.id] : '';
+      ta.addEventListener('input', function () {
+        answers[q.id] = ta.value;
+        autosize(ta);
+        persist();
+      });
+
+      if (q.type === 'chips') {
+        var clabel = document.createElement('p');
+        clabel.className = 'chip-label';
+        clabel.style.marginTop = '0.7rem';
+        clabel.style.marginBottom = '0';
+        clabel.textContent = 'Tap an idea to start:';
+        wrap.appendChild(clabel);
+
+        var crow = document.createElement('div');
+        crow.className = 'chips';
+        q.chips.forEach(function (chipText) {
+          var c = document.createElement('button');
+          c.type = 'button';
+          c.className = 'chip';
+          if (answers[q.id] === chipText) c.classList.add('active');
+          c.textContent = chipText;
+          c.addEventListener('click', function () {
+            ta.value = chipText;
+            answers[q.id] = chipText;
+            crow.querySelectorAll('.chip').forEach(function (x) { x.classList.remove('active'); });
+            c.classList.add('active');
+            autosize(ta);
+            ta.focus();
+            persist();
+          });
+          crow.appendChild(c);
+        });
+        wrap.appendChild(crow);
+        wrap.appendChild(ta);
+      } else {
+        wrap.appendChild(ta);
+      }
+
+      requestAnimationFrame(function () { autosize(ta); });
+    }
+
+    return wrap;
+  }
+
+  function renderSections() {
+    sectionsEl.innerHTML = '';
+    SECTIONS.forEach(function (section) {
+      var card = document.createElement('div');
+      card.className = 'section-card';
+
+      var tab = document.createElement('div');
+      tab.className = 'ticket-tab';
+      var num = document.createElement('span');
+      num.className = 'num';
+      num.textContent = 'SECTION ' + section.num;
+      var stitle = document.createElement('span');
+      stitle.className = 'stitle';
+      stitle.textContent = section.title;
+      tab.appendChild(num);
+      tab.appendChild(stitle);
+      card.appendChild(tab);
+
+      section.questions.forEach(function (q) {
+        card.appendChild(buildQuestion(q));
+      });
+
+      sectionsEl.appendChild(card);
+    });
+  }
+
+  renderSections();
+  updateProgress();
+
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    var lines = ['MISSION DEBRIEF', ''];
+    SECTIONS.forEach(function (section) {
+      var sectionLines = [];
+      section.questions.forEach(function (q) {
+        var v = answers[q.id];
+        var has = (typeof v === 'number') || (typeof v === 'string' && v.trim().length > 0);
+        if (has) sectionLines.push(q.label + ' — ' + v);
+      });
+      if (sectionLines.length) {
+        lines.push('-- ' + section.title + ' --');
+        lines = lines.concat(sectionLines);
+        lines.push('');
+      }
+    });
+    var text = lines.join('\n').trim();
+    var statusLine = document.getElementById('statusLine');
+    if (!text) {
+      statusLine.textContent = 'Answer a question or two first!';
+      setTimeout(function () { statusLine.textContent = ''; }, 2200);
+      return;
+    }
+    function showCopied() {
+      statusLine.textContent = 'Copied to clipboard.';
+      setTimeout(function () { statusLine.textContent = ''; }, 2200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(showCopied, function () { fallbackCopy(text, showCopied); });
+    } else {
+      fallbackCopy(text, showCopied);
+    }
+  });
+
+  function fallbackCopy(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    cb();
+  }
+
+  document.getElementById('clearBtn').addEventListener('click', function () {
+    if (!confirm('Clear all your answers on this device? This cannot be undone.')) return;
+    answers = {};
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    renderSections();
+    updateProgress();
+  });
+})();
+</script>
+</body>
+</html>

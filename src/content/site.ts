@@ -59,11 +59,11 @@ export const projects: Project[] = [
     status: "new",
   },
   {
-    id: "date-survey",
-    title: "The Dating Survey",
+    id: "mission-debrief",
+    title: "Mission Debrief",
     description:
-      'A lighthearted survey project built in the search for "the one."',
-    href: "/date-survey",
+      "A lighthearted post-date debrief — tap a few tags, share the verdict.",
+    href: "/mission-debrief.html",
     emoji: "📝",
     status: "new",
   },

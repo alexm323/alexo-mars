@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { site, projects } from "../content/site";
 
+// Project links can point at a real SPA route (client-side nav) or a
+// standalone static file served as-is (needs a real page load).
+function isStaticHref(href: string): boolean {
+  return /\.\w+$/.test(href);
+}
+
 function SectionHeading({ children }: { children: string }) {
   return (
     <h2 className="mb-3 text-center text-sm font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
@@ -54,24 +60,34 @@ export default function Home() {
       <section>
         <SectionHeading>Projects</SectionHeading>
         <div className="grid gap-4 sm:grid-cols-2">
-          {projects.map((project) => (
-            <Link
-              key={project.id}
-              to={project.href}
-              className="group flex flex-col gap-2 rounded-xl border border-slate-200 p-5 text-left transition hover:border-violet-300 hover:shadow-sm dark:border-slate-800 dark:hover:border-violet-600"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-xl">{project.emoji}</span>
-                <span className="font-medium text-slate-900 dark:text-white">{project.title}</span>
-                {project.status === "new" && (
-                  <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-600 dark:bg-violet-900/40 dark:text-violet-300">
-                    new
-                  </span>
-                )}
-              </div>
-              <p className="text-sm text-slate-500 dark:text-slate-400">{project.description}</p>
-            </Link>
-          ))}
+          {projects.map((project) => {
+            const cardClassName =
+              "group flex flex-col gap-2 rounded-xl border border-slate-200 p-5 text-left transition hover:border-violet-300 hover:shadow-sm dark:border-slate-800 dark:hover:border-violet-600";
+            const cardContent = (
+              <>
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">{project.emoji}</span>
+                  <span className="font-medium text-slate-900 dark:text-white">{project.title}</span>
+                  {project.status === "new" && (
+                    <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-600 dark:bg-violet-900/40 dark:text-violet-300">
+                      new
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{project.description}</p>
+              </>
+            );
+
+            return isStaticHref(project.href) ? (
+              <a key={project.id} href={project.href} className={cardClassName}>
+                {cardContent}
+              </a>
+            ) : (
+              <Link key={project.id} to={project.href} className={cardClassName}>
+                {cardContent}
+              </Link>
+            );
+          })}
         </div>
       </section>
 
