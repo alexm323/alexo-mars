@@ -54,7 +54,7 @@ export default function DateSurvey() {
       <div className="mx-auto flex max-w-md flex-col items-center gap-4 text-center">
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Thanks! 🎉</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Last step — actually get this to {site.name.split(" ")[0]}. Pick one:
+          Last step — actually get this to me. Pick one:
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <a

@@ -5,7 +5,7 @@ import { site } from "../content/site";
 const NAV = [
   { label: "Home", href: "/" },
   { label: "Paint Names", href: "/paint-names" },
-  { label: "Date Survey", href: "/date-survey" },
+  { label: "Dating Survey", href: "/date-survey" },
 ];
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <header className="border-b border-slate-200 dark:border-slate-800">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
           <Link to="/" className="font-semibold text-slate-900 dark:text-white">
-            {site.name}
+            {site.title}
           </Link>
           <nav className="flex gap-5 text-sm">
             {NAV.map((item) => {
@@ -42,7 +42,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">{children}</main>
 
       <footer className="border-t border-slate-200 py-6 text-center text-sm text-slate-400 dark:border-slate-800 dark:text-slate-600">
-        © {new Date().getFullYear()} {site.name}
+        © {new Date().getFullYear()} {site.title}
       </footer>
     </div>
   );

@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 import { site, projects } from "../content/site";
 
+function SectionHeading({ children }: { children: string }) {
+  return (
+    <h2 className="mb-3 text-center text-sm font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+      {children}
+    </h2>
+  );
+}
+
 export default function Home() {
   return (
     <div className="flex flex-col gap-16">
@@ -9,34 +17,42 @@ export default function Home() {
           {site.avatarInitials}
         </div>
         <div>
-          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">{site.name}</h1>
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">{site.title}</h1>
           <p className="mt-1 text-slate-500 dark:text-slate-400">{site.tagline}</p>
         </div>
         <div className="flex flex-wrap justify-center gap-3">
-          {site.links.map((link) => (
-            <a
-              key={link.url}
-              href={link.url}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-slate-200 px-4 py-1.5 text-sm text-slate-600 transition hover:border-violet-300 hover:text-violet-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-violet-500 dark:hover:text-violet-400"
-            >
-              {link.label}
-            </a>
-          ))}
+          {site.links.map((link) =>
+            link.url ? (
+              <a
+                key={link.label}
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-slate-200 px-4 py-1.5 text-sm text-slate-600 transition hover:border-violet-300 hover:text-violet-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-violet-500 dark:hover:text-violet-400"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <span
+                key={link.label}
+                className="rounded-full border border-slate-200 px-4 py-1.5 text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400"
+              >
+                {link.label}: {link.handle}
+              </span>
+            ),
+          )}
         </div>
       </section>
 
       <section className="mx-auto max-w-xl space-y-3 text-center">
-        {site.bio.map((paragraph, i) => (
+        <SectionHeading>About</SectionHeading>
+        {site.about.map((paragraph, i) => (
           <p key={i}>{paragraph}</p>
         ))}
       </section>
 
       <section>
-        <h2 className="mb-5 text-center text-sm font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
-          Projects
-        </h2>
+        <SectionHeading>Projects</SectionHeading>
         <div className="grid gap-4 sm:grid-cols-2">
           {projects.map((project) => (
             <Link
@@ -57,6 +73,45 @@ export default function Home() {
             </Link>
           ))}
         </div>
+      </section>
+
+      <section className="mx-auto max-w-xl text-center">
+        <SectionHeading>Now</SectionHeading>
+        <p>{site.now}</p>
+      </section>
+
+      <section className="mx-auto max-w-xl">
+        <SectionHeading>Gear</SectionHeading>
+        <div className="grid gap-6 sm:grid-cols-2">
+          {site.gear.map((group) => (
+            <div key={group.category} className="text-left">
+              <h3 className="mb-2 font-medium text-slate-900 dark:text-white">{group.category}</h3>
+              <ul className="space-y-1 text-sm text-slate-500 dark:text-slate-400">
+                {group.items.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="text-violet-400 dark:text-violet-500">•</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-xl text-center">
+        <SectionHeading>Playlist / Sound</SectionHeading>
+        <p>{site.playlist}</p>
+      </section>
+
+      <section className="mx-auto max-w-xl text-center">
+        <SectionHeading>Kitchen</SectionHeading>
+        <p>{site.kitchen}</p>
+      </section>
+
+      <section className="mx-auto max-w-xl text-center">
+        <SectionHeading>Sidekicks</SectionHeading>
+        <p>{site.sidekicks}</p>
       </section>
     </div>
   );
