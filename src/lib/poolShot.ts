@@ -170,8 +170,11 @@ function buildResult(base: Base, totalDist: number, cueBall: Point) {
     hitLabel = "Slightly below center — a touch of draw keeps the cue ball from creeping forward.";
   }
 
+  // Land the "stand here" marker exactly on the outer edge of the table (the
+  // rail's outside edge is drawn 5 units past the felt boundary), not out on
+  // the felt or floating off in the floor space beyond it.
   const standDir = { x: -base.uCueToGhost.x, y: -base.uCueToGhost.y };
-  const standPoint = rayRectExit(cueBall, standDir, CUSHION.left, CUSHION.top, CUSHION.right, CUSHION.bottom, 30);
+  const standPoint = rayRectExit(cueBall, standDir, FELT.left, FELT.top, FELT.right, FELT.bottom, 5);
 
   return { ...base, power, powerLabel, note, angleWarn, impossible, hitOffset, hitLabel, standPoint };
 }

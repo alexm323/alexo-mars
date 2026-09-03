@@ -25,6 +25,7 @@ const TABLE_BG = "#241C15";
 const FELT_COLOR = "#1F5C3B";
 const FELT_HILITE = "#256B47";
 const RAIL_COLOR = "#6B4226";
+const STAND_COLOR = "#FF10F0";
 
 function modeButtonClass(active: boolean) {
   return (
@@ -85,6 +86,41 @@ function drawBall(ctx: CanvasRenderingContext2D, p: Point | null, color: string)
   ctx.restore();
 }
 
+// A "you are here"-map-style star pin, glowing neon pink.
+function drawStar(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  outerRadius: number,
+  innerRadius: number,
+  color: string,
+) {
+  const spikes = 5;
+  const step = Math.PI / spikes;
+  let rot = -Math.PI / 2; // first point straight up
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(cx + Math.cos(rot) * outerRadius, cy + Math.sin(rot) * outerRadius);
+  for (let i = 0; i < spikes; i++) {
+    rot += step;
+    ctx.lineTo(cx + Math.cos(rot) * innerRadius, cy + Math.sin(rot) * innerRadius);
+    rot += step;
+    ctx.lineTo(cx + Math.cos(rot) * outerRadius, cy + Math.sin(rot) * outerRadius);
+  }
+  ctx.closePath();
+
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 14;
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = 1.2;
+  ctx.strokeStyle = "#ffffff";
+  ctx.stroke();
+  ctx.restore();
+}
+
 function drawLines(ctx: CanvasRenderingContext2D, shot: ShotResult | null, cueBall: Point | null) {
   if (!shot || !cueBall) return;
 
@@ -140,19 +176,13 @@ function drawLines(ctx: CanvasRenderingContext2D, shot: ShotResult | null, cueBa
   ctx.stroke();
   ctx.restore();
 
-  ctx.beginPath();
-  ctx.ellipse(sp.x - 5, sp.y, 5, 7, 0.3, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(242,239,228,0.9)";
-  ctx.fill();
-  ctx.beginPath();
-  ctx.ellipse(sp.x + 5, sp.y, 5, 7, -0.3, 0, Math.PI * 2);
-  ctx.fill();
+  drawStar(ctx, sp.x, sp.y, 11, 4.5, STAND_COLOR);
 
-  ctx.font = "13px system-ui, sans-serif";
-  ctx.fillStyle = "rgba(242,239,228,0.9)";
+  ctx.font = "bold 13px system-ui, sans-serif";
+  ctx.fillStyle = STAND_COLOR;
   ctx.textAlign = sp.x < TABLE_W / 2 ? "left" : "right";
   ctx.textBaseline = sp.y < TABLE_H / 2 ? "bottom" : "top";
-  ctx.fillText("stand here", sp.x + (sp.x < TABLE_W / 2 ? 14 : -14), sp.y + (sp.y < TABLE_H / 2 ? -10 : 10));
+  ctx.fillText("stand here", sp.x + (sp.x < TABLE_W / 2 ? 16 : -16), sp.y + (sp.y < TABLE_H / 2 ? -12 : 12));
 }
 
 function drawHitBall(ctx: CanvasRenderingContext2D, w: number, h: number, offset: number) {
