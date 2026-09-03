@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import PaintNameGenerator from "./pages/PaintNameGenerator";
+import PoolCalculator from "./pages/PoolCalculator";
 
 // The old placeholder survey lived at /date-survey before it was replaced
 // by the static /mission-debrief.html page. Hard-redirect anyone who still
@@ -20,6 +21,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/paint-names" element={<PaintNameGenerator />} />
+        <Route path="/humbleshot" element={<PoolCalculator />} />
         <Route path="/date-survey" element={<DateSurveyRedirect />} />
       </Routes>
     </Layout>

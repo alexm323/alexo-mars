@@ -67,4 +67,13 @@ export const projects: Project[] = [
     emoji: "📝",
     status: "new",
   },
+  {
+    id: "humbleshot",
+    title: "Humbleshot",
+    description:
+      "A pool shot calculator — place the cue ball, the object ball, and a pocket to see the aim line, ghost-ball spot, suggested power, and a bank-shot option.",
+    href: "/humbleshot",
+    emoji: "🎱",
+    status: "new",
+  },
 ];

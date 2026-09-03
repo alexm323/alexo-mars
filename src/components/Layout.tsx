@@ -6,6 +6,7 @@ const NAV = [
   { label: "Home", href: "/" },
   { label: "Paint Names", href: "/paint-names" },
   { label: "Mission Debrief", href: "/mission-debrief.html" },
+  { label: "Humbleshot", href: "/humbleshot" },
 ];
 
 // A nav item can point at a real SPA route (client-side nav) or a
